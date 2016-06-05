@@ -12,12 +12,6 @@ FLAGS_x86="\
  -I$src \
  -I$src/.. \
  -I$src/../3rdParty \
- -Wno-unused-result \
- -w \
- -D__interface=struct \
- -Wno-ignored-qualifiers \
- -Wno-write-strings \
- -Wno-format-contains-nul \
  -fpermissive \
  -S \
  -masm=intel \
@@ -30,7 +24,7 @@ CC=g++
 AS=as
 
 echo Compiling core sources for Project64...
-#$CC -o $obj/7zip.asm                    $src/../3rdParty/7zip.cpp $C_FLAGS # precompiled?
+#$CC -o $obj/7zip.asm                    $src/3rdParty/7zip.cpp $C_FLAGS # precompiled?
 $CC -o $obj/AppInit.asm                 $src/AppInit.cpp $C_FLAGS
 $CC -o $obj/logging.asm                 $src/Logging.cpp $C_FLAGS
 $CC -o $obj/MemoryExceptionFilter.asm   $src/MemoryExceptionFilter.cpp $C_FLAGS
@@ -122,6 +116,7 @@ $AS -o $obj/N64System/interp/CPU.o      $obj/N64System/interp/CPU.asm
 $AS -o $obj/N64System/interp/Ops.o      $obj/N64System/interp/Ops.asm
 $AS -o $obj/N64System/interp/Ops32.o    $obj/N64System/interp/Ops32.asm
 $AS -o $obj/N64System/Mips/Audio.o      $obj/N64System/Mips/Audio.asm
+$AS -o $obj/N64System/Mips/Disk.o       $obj/N64System/Mips/Disk.asm
 $AS -o $obj/N64System/Mips/Dma.o        $obj/N64System/Mips/Dma.asm
 $AS -o $obj/N64System/Mips/Eeprom.o     $obj/N64System/Mips/Eeprom.asm
 $AS -o $obj/N64System/Mips/FlashRam.o   $obj/N64System/Mips/FlashRam.asm
@@ -136,6 +131,7 @@ $AS -o $obj/N64System/Mips/SyEvents.o   $obj/N64System/Mips/SyEvents.asm
 $AS -o $obj/N64System/Mips/SyTiming.o   $obj/N64System/Mips/SyTiming.asm
 $AS -o $obj/N64System/Mips/TLBclass.o   $obj/N64System/Mips/TLBclass.asm
 $AS -o $obj/N64System/N64Class.o        $obj/N64System/N64Class.asm
+$AS -o $obj/N64System/N64DiskClass.o    $obj/N64System/N64DiskClass.asm
 $AS -o $obj/N64System/N64RomClass.o     $obj/N64System/N64RomClass.asm
 $AS -o $obj/N64System/ProfileClass.o    $obj/N64System/ProfileClass.asm
 $AS -o $obj/N64System/dynarec/Block.o   $obj/N64System/dynarec/Block.asm
@@ -185,8 +181,8 @@ $AS -o $obj/Settings/type/TmpBool.o     $obj/Settings/type/TmpBool.asm
 $AS -o $obj/Settings/type/TmpNumber.o   $obj/Settings/type/TmpNumber.asm
 $AS -o $obj/Settings/type/TmpString.o   $obj/Settings/type/TmpString.asm
 
-set OBJ_LIST="\
-$obj/7zip.o \
+# $obj/7zip.o \
+OBJ_LIST="\
 $obj/AppInit.o \
 $obj/logging.o \
 $obj/Multilanguage/LangClass.o \
@@ -197,6 +193,7 @@ $obj/N64System/interp/CPU.o \
 $obj/N64System/interp/Ops.o \
 $obj/N64System/interp/Ops32.o \
 $obj/N64System/Mips/Audio.o \
+$obj/N64System/Mips/Disk.o \
 $obj/N64System/Mips/Dma.o \
 $obj/N64System/Mips/Eeprom.o \
 $obj/N64System/Mips/FlashRam.o \
@@ -211,6 +208,7 @@ $obj/N64System/Mips/SyEvents.o \
 $obj/N64System/Mips/SyTiming.o \
 $obj/N64System/Mips/TLBclass.o \
 $obj/N64System/N64Class.o \
+$obj/N64System/N64DiskClass.o \
 $obj/N64System/N64RomClass.o \
 $obj/N64System/ProfileClass.o \
 $obj/N64System/dynarec/Block.o \
